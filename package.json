@@ -13,8 +13,11 @@
     "@vueuse/core": "^10.7.0",
     "axios": "^1.6.2",
     "leaflet": "^1.9.4",
+    "leaflet-control-geocoder": "^3.2.0",
+    "leaflet-routing-machine": "^3.2.12",
     "pinia": "^2.1.7",
     "sweetalert2": "^11.22.0",
+    "swiper": "^11.2.8",
     "vue": "^3.4.38",
     "vue-i18n": "^9.8.0",
     "vue-router": "^4.2.5"

@@ -55,7 +55,7 @@
                   <span class="sr-only">Abrir menú de usuario</span>
                   <img
                     class="h-8 w-8 rounded-full"
-                    :src="authStore.user?.profile_photo || 'https://via.placeholder.com/32'"
+                    :src="authStore.user?.profile_photo || defaultAvatar"
                     alt=""
                   />
                 </button>
@@ -190,7 +190,7 @@
             <div class="flex-shrink-0">
               <img
                 class="h-10 w-10 rounded-full"
-                :src="authStore.user?.profile_photo || 'https://via.placeholder.com/40'"
+                :src="authStore.user?.profile_photo || defaultAvatar"
                 alt=""
               />
             </div>
@@ -243,7 +243,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
 
@@ -257,4 +257,12 @@ const handleLogout = async () => {
   await authStore.logout();
   router.push('/login');
 };
+
+const defaultAvatar = computed(() => {
+  if (!authStore.user?.email) return 'https://api.dicebear.com/7.x/bottts/svg?seed=default&backgroundColor=4CAF50&baseColor=4CAF50&backgroundColor=ffffff';
+  const hash = authStore.user.email.split('').reduce((acc, char) => {
+    return char.charCodeAt(0) + ((acc << 5) - acc);
+  }, 0);
+  return `https://api.dicebear.com/7.x/bottts/svg?seed=${hash}&backgroundColor=4CAF50&baseColor=4CAF50&backgroundColor=ffffff`;
+});
 </script> 

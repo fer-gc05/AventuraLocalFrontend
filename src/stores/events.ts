@@ -18,8 +18,16 @@ interface Event {
   media?: string[];
 }
 
+interface PaginatedResponse {
+  data: Event[];
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+}
+
 interface EventsState {
-  events: Event[];
+  events: PaginatedResponse | null;
   popularEvents: Event[];
   upcomingEvents: Event[];
   currentEvent: Event | null;
@@ -29,13 +37,17 @@ interface EventsState {
 
 export const useEventsStore = defineStore('events', {
   state: (): EventsState => ({
-    events: [],
+    events: null,
     popularEvents: [],
     upcomingEvents: [],
     currentEvent: null,
     isLoading: false,
     error: null
   }),
+  
+  getters: {
+    eventsList: (state) => state.events?.data || [],
+  },
   
   actions: {
     async fetchEvents() {
@@ -51,8 +63,12 @@ export const useEventsStore = defineStore('events', {
           throw new Error(response.data.message || 'Error al obtener eventos');
         }
       } catch (error: any) {
-        this.error = error.response?.data?.message || 'Error al obtener eventos';
-        this.events = [];
+        if (error.response?.status === 401 || error.response?.status === 403) {
+          this.error = 'Debes iniciar sesión como viajero para realizar esta acción.';
+        } else {
+          this.error = error.response?.data?.message || 'Error al obtener eventos';
+        }
+        this.events = null;
       } finally {
         this.isLoading = false;
       }
@@ -66,7 +82,7 @@ export const useEventsStore = defineStore('events', {
         const response = await api.get(`/events/popular?limit=${limit}`);
         
         if (response.data.success) {
-          this.popularEvents = response.data.data;
+          this.popularEvents = response.data.data || [];
         } else {
           throw new Error(response.data.message || 'Error al obtener eventos populares');
         }
@@ -86,7 +102,7 @@ export const useEventsStore = defineStore('events', {
         const response = await api.get(`/events/upcoming/`);
         
         if (response.data.success) {
-          this.upcomingEvents = response.data.data.data;
+          this.upcomingEvents = response.data.data.data || [];
         } else {
           throw new Error(response.data.message || 'Error al obtener próximos eventos');
         }
@@ -168,7 +184,7 @@ export const useEventsStore = defineStore('events', {
         const response = await api.get(`/events/${id}/attendees`);
         
         if (response.data.success) {
-          return response.data.data;
+          return response.data.data || [];
         } else {
           throw new Error(response.data.message || 'Error al obtener asistentes');
         }

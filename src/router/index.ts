@@ -9,12 +9,12 @@ import DestinationsPage from '../views/destinations/DestinationsPage.vue';
 import DestinationDetailPage from '../views/destinations/DestinationDetailPage.vue';
 import RoutesPage from '../views/routes/RoutesPage.vue';
 import RouteDetailPage from '../views/routes/RouteDetailPage.vue';
+import CommunitiesPage from '../views/communities/CommunitiesPage.vue';
+import CommunityDetailPage from '../views/communities/CommunityDetailsPage.vue';
+import EventsPage from '../views/events/EventsPage.vue';
+import EventDetailPage from '../views/events/EventDetailsPage.vue';
+import ProfilePage from '../views/auth/ProfilePage.vue'
 // import CreateRoutePage from '../views/routes/CreateRoutePage.vue';
-// import CommunitiesPage from '../views/communities/CommunitiesPage.vue';
-// import CommunityDetailPage from '../views/communities/CommunityDetailPage.vue';
-// import EventsPage from '../views/events/EventsPage.vue';
-// import EventDetailPage from '../views/events/EventDetailPage.vue';
-// import ProfilePage from '../views/user/ProfilePage.vue';
 // import NotFoundPage from '../views/NotFoundPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -62,43 +62,46 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
     meta: { title: 'Detalle de ruta' }
   },
-  //  {
+  {
+    path: '/communities',
+    name: 'communities',
+    component: CommunitiesPage,
+    meta: { title: 'Comunidades' }
+  },
+  {
+    path: '/communities/:id',
+    name: 'communityDetail',
+    component: CommunityDetailPage,
+    props: true,
+    meta: { title: 'Detalle de comunidad' }
+  },
+  {
+    path: '/events',
+    name: 'events',
+    component: EventsPage,
+    meta: { title: 'Eventos' }
+  },
+  {
+    path: '/events/:id',
+    name: 'eventDetail',
+    component: EventDetailPage,
+    props: true,
+    meta: { title: 'Detalle de evento' }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfilePage,
+    meta: { 
+      title: 'Mi Perfil',
+      requiresAuth: true 
+    }
+  },
+  // {
   //   path: '/routes/create',
   //   name: 'createRoute',
   //   component: CreateRoutePage,
   //   meta: { title: 'Crear ruta', requiresAuth: true }
-  // },
-  // {
-  //   path: '/communities',
-  //   name: 'communities',
-  //   component: CommunitiesPage,
-  //   meta: { title: 'Comunidades' }
-  // },
-  // {
-  //   path: '/communities/:id',
-  //   name: 'communityDetail',
-  //   component: CommunityDetailPage,
-  //   props: true,
-  //   meta: { title: 'Detalle de comunidad' }
-  // },
-  // {
-  //   path: '/events',
-  //   name: 'events',
-  //   component: EventsPage,
-  //   meta: { title: 'Eventos' }
-  // },
-  // {
-  //   path: '/events/:id',
-  //   name: 'eventDetail',
-  //   component: EventDetailPage,
-  //   props: true,
-  //   meta: { title: 'Detalle de evento' }
-  // },
-  // {
-  //   path: '/profile',
-  //   name: 'profile',
-  //   component: ProfilePage,
-  //   meta: { title: 'Mi perfil', requiresAuth: true }
   // },
   // {
   //   path: '/:pathMatch(.*)*',

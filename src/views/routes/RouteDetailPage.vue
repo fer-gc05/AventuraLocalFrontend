@@ -128,12 +128,13 @@
             <!-- Mapa -->
             <div class="lg:col-span-2">
               <MapComponent 
-                :coordinates="routesStore.currentRoute.destinations.map(dest => ({
-                  lat: parseFloat(dest.latitude),
-                  lng: parseFloat(dest.longitude),
-                  name: dest.name
+                :coordinates="routesStore.currentRoute.destinations.map(dest => ({ 
+                  name: dest.name, 
+                  lat: dest.latitude ? Number(dest.latitude) : undefined, 
+                  lng: dest.longitude ? Number(dest.longitude) : undefined
                 }))"
                 :show-route="true"
+                :map-id="`map-ruta-${routesStore.currentRoute.id}`"
               />
             </div>
             
@@ -212,7 +213,7 @@
                   :to="`/destinations/${destination.id}`"
                   class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium text-sm"
                 >
-                  {{ $t('common.learnMore') }}
+                  Ver detalles
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>

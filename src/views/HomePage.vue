@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDestinationsStore } from '../stores/destinations';
 import { useRoutesStore } from '../stores/routes';
@@ -26,6 +26,8 @@ const handleSearch = () => {
     query: { q: searchQuery.value }
   });
 };
+
+const safeUpcomingEvents = computed(() => Array.isArray(eventsStore.upcomingEvents) ? eventsStore.upcomingEvents : []);
 </script>
 
 <template>
@@ -187,11 +189,11 @@ const handleSearch = () => {
         <div v-else-if="eventsStore.error" class="text-center py-10">
           <p class="text-red-500">{{ eventsStore.error }}</p>
         </div>
-        <div v-else-if="eventsStore.upcomingEvents.length === 0" class="text-center py-10">
+        <div v-else-if="safeUpcomingEvents.length === 0" class="text-center py-10">
           <p>No hay eventos próximos disponibles en este momento.</p>
         </div>
         <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div v-for="event in eventsStore.upcomingEvents.slice(0, 4)" :key="event.id" class="card group">
+          <div v-for="event in safeUpcomingEvents.slice(0, 4)" :key="event.id" class="card group">
             <div class="p-4">
               <h3 class="font-semibold text-lg mb-1">{{ event.title }}</h3>
               <div class="flex items-center gap-2 text-sm text-gray-600 mb-2">
