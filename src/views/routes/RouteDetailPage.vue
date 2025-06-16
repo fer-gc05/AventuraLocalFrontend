@@ -281,7 +281,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, nextTick } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useRoutesStore } from '../../stores/routes';
 import { useAuthStore } from '../../stores/auth';

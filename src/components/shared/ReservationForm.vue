@@ -74,7 +74,7 @@ const submitReservation = async () => {
   }
   loading.value = true;
   try {
-    const response = await axios.post(
+    await axios.post(
       '/api/reservations',
       {
         destination_id: props.destinationId,

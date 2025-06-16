@@ -185,17 +185,14 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed, watch, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { onMounted, computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { useDestinationsStore } from '../../stores/destinations';
 import LoadingIndicator from '../../components/shared/LoadingIndicator.vue';
 import MapComponent from '../../components/shared/MapComponent.vue';
-import { useAuthStore } from '../../stores/auth';
 
 const route = useRoute();
-const router = useRouter();
 const destinationsStore = useDestinationsStore();
-const authStore = useAuthStore();
 
 const destination = computed(() => {
   console.log('Computed destination:', destinationsStore.currentDestination);

@@ -124,17 +124,17 @@ const router = createRouter({
 });
 
 // Navigation guards
-router.beforeEach((to, from, next) => {
+router.beforeEach((_to, _from, next) => {
   // Update page title
-  document.title = to.meta.title as string || 'AventuraLocal';
+  document.title = _to.meta.title as string || 'AventuraLocal';
   
   const authStore = useAuthStore();
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  const isGuestRoute = to.matched.some(record => record.meta.guest);
+  const requiresAuth = _to.matched.some(record => record.meta.requiresAuth);
+  const isGuestRoute = _to.matched.some(record => record.meta.guest);
   
   if (requiresAuth && !authStore.isAuthenticated) {
     // Redirect to login if route requires auth and user is not authenticated
-    next({ name: 'login', query: { redirect: to.fullPath } });
+    next({ name: 'login', query: { redirect: _to.fullPath } });
   } else if (isGuestRoute && authStore.isAuthenticated) {
     // Redirect to home if route is for guests only and user is authenticated
     next({ name: 'home' });
