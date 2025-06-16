@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import NavBar from './components/layout/NavBar.vue';
+import Navbar from './components/layout/Navbar.vue';
 import Footer from './components/layout/Footer.vue';
 import { useAuthStore } from './stores/auth';
 
@@ -25,7 +25,7 @@ onMounted(async () => {
 
 <template>
   <div class="app-container min-h-screen flex flex-col">
-    <NavBar />
+    <Navbar />
     <main class="flex-grow">
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
