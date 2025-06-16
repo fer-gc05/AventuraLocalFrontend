@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with base URL
 const api = axios.create({
-  baseURL: 'http://ec2-3-136-233-80.us-east-2.compute.amazonaws.com:8000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://ec2-3-136-233-80.us-east-2.compute.amazonaws.com:8000/api',
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
